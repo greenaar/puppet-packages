@@ -31,7 +31,7 @@
 #
 # Aaron Greengrass <aaron@thatserver.ca>
 #
-class package::manage (
+class packages::manage (
   $install_packages = hiera_array('packages::install',undef),
   $latest_packages = hiera_array('packages::latest',undef),
   $remove_packages = hiera_array('packages::remove',undef),
