@@ -72,7 +72,7 @@ packages::versioned:
   nethack-console:
     ensure: 'purged'
 
-# note, when using 'packages::versioned', you may pass any standard
+- note, when using 'packages::versioned', you may pass any standard
   packaging parameter to the entry. for example:
 
 packages::versioned
