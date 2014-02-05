@@ -42,7 +42,7 @@ class { 'packages::manage':
 
 From hiera:
 
-/*
+----------------------------
 
  Please note, when using layered yaml files, you will want to make
   sure that you have the deep_merge gem installed and configured.
@@ -54,29 +54,29 @@ gem install deep_merge
 :merge_behavior:
   - deeper
 
-*/
+----------------------------
 
-packages::install:
-  - 'nano'
-  - 'curl'
-  - 'unzip'
+  packages::install:
+    - 'nano'
+    - 'curl'
+    - 'unzip'
 
-packages::install::gems:
-  - 'deep_merge'
+  packages::install::gems:
+    - 'deep_merge'
 
-packages::latest:
-  - 'puppet'
-  - 'hiera'
+  packages::latest:
+    - 'puppet'
+    - 'hiera'
 
-packages::versioned:
-  nethack-console:
-    ensure: 'purged'
+  packages::versioned:
+    nethack-console:
+      ensure: 'purged'
 
 - note, when using 'packages::versioned', you may pass any standard
   packaging parameter to the entry. for example:
 
-packages::versioned
-  gear:
-    ensure: 'latest'
-    provider: 'pip'
+  packages::versioned
+    gear:
+      ensure: 'latest'
+      provider: 'pip'
 
