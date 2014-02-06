@@ -35,7 +35,6 @@ class { 'packages::manage':
                             # state => latest.
   remove_packages  => [''], # an array of packages which should have
                             # state => purged.
-  install_packages_gems => [''], # an array of gems to install.
   install_version  => [''], # a hashed array of packages to manage,
                             # see hiera details
 }
@@ -61,9 +60,6 @@ packages::install:
   - 'curl'
   - 'unzip'
 
-packages::install::gems:
-  - 'deep_merge'
-
 packages::latest:
   - 'puppet'
   - 'hiera'
@@ -79,4 +75,9 @@ packages::versioned
   gear:
     ensure: 'latest'
     provider: 'pip'
+
+packages::versioned:
+  deep_merge:
+    ensure: 'latest'
+    provider: 'gem'
 ```
