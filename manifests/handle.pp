@@ -1,3 +1,7 @@
+#
+# === Package handler
+#
+# For bulk operations, make sure the package isn't defined otherwhere
 define packages::handle (
   $ensure = 'installed'
 ) {
@@ -7,23 +11,11 @@ define packages::handle (
     fail("\"${ensure}\" is not a valid ensure parameter value")
   }
 
-  case $ensure {
-    'installed': {
-      if ! defined(Package[$name]) {
-        package { $name: ensure => installed, }
-      }
+  if ! defined(Package[$name]) {
+    package { $name: ensure => $ensure, }
+  } else {
+    notify { "${name}-exists":
+      message => "${name} is defined elsewhere, this command has caught it and prevented a failure. Please fix.",
     }
-    'latest': {
-      if ! defined(Package[$name]) {
-        package { $name: ensure => latest, }
-      }
-    }
-    'absent': {
-      if ! defined(Package[$name]) {
-        package { $name: ensure => absent, }
-      }
-    }
-    default: {}
   }
-
 }
