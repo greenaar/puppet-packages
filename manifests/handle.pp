@@ -3,7 +3,8 @@
 #
 # For bulk operations, make sure the package isn't defined otherwhere
 define packages::handle (
-  $ensure = 'installed'
+  $ensure = 'installed',
+  $debug = false
 ) {
 
 # TODO : validate options
@@ -14,8 +15,10 @@ define packages::handle (
   if ! defined(Package[$name]) {
     package { $name: ensure => $ensure, }
   } else {
-    notify { "${name}-exists":
-      message => "${name} is defined elsewhere, this command has caught it and prevented a failure. Please fix.",
+    if $debug {
+      notify { "${name}-exists":
+        message => "${name} is defined elsewhere, this command has caught it and prevented a failure. Please fix.",
+      }
     }
   }
 }

@@ -33,7 +33,12 @@ class packages::manage (
   }
 
   if $install_version {
-      create_resources(package, $install_version, $install_defaults)
+    $install_keys = keys($install_version)
+    packages::versioned {
+      $install_keys:
+        data => $install_version
+    }
+#   create_resources(package, $install_version, $install_defaults)
   }
 
 }
