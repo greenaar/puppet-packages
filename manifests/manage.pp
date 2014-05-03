@@ -12,37 +12,31 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+# Handles bulk package management via hiera.
 #
+
 class packages::manage (
   $install_packages = hiera_array('packages::install',undef),
   $latest_packages = hiera_array('packages::latest',undef),
   $remove_packages = hiera_array('packages::remove',undef),
-  $install_packages_gems = hiera_array('packages::install::gems',undef),
   $install_version = hiera_hash('packages::versioned',undef)
 ) {
 
   if $install_packages {
-    package { $install_packages:
+    packages::handle { $install_packages:
       ensure => installed,
     }
   }
 
   if $latest_packages {
-    package { $latest_packages:
+    packages::handle { $latest_packages:
       ensure => latest,
     }
   }
 
   if $remove_packages {
-    package { $remove_packages:
-      ensure => purged,
-    }
-  }
-
-  if $install_packages_gems {
-    package { $install_packages_gems:
-      ensure   => installed,
-      provider => gem,
+    packages::handle { $remove_packages:
+      ensure => absent,
     }
   }
 
@@ -51,7 +45,12 @@ class packages::manage (
   }
 
   if $install_version {
-      create_resources(package, $install_version, $install_defaults)
+    $install_keys = keys($install_version)
+    packages::versioned {
+      $install_keys:
+        data => $install_version
+    }
+#   create_resources(package, $install_version, $install_defaults)
   }
 
 }
