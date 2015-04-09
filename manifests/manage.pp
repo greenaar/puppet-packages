@@ -7,6 +7,7 @@ class packages::manage (
   $install_packages = hiera_array('packages::install',undef),
   $latest_packages = hiera_array('packages::latest',undef),
   $remove_packages = hiera_array('packages::remove',undef),
+  $purge_packages = hiera_array('packages::purge',undef),
   $install_version = hiera_hash('packages::versioned',undef)
 ) {
 
@@ -27,6 +28,13 @@ class packages::manage (
       ensure => absent,
     }
   }
+
+  if $purge_packages {
+    packages::handle { $purge_packages:
+      ensure => purged,
+    }
+  }
+
 
   $install_defaults = {
     ensure => 'installed',
