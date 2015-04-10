@@ -35,7 +35,6 @@ class packages::manage (
     }
   }
 
-
   $install_defaults = {
     ensure => 'installed',
   }
