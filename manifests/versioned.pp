@@ -1,6 +1,6 @@
 # versioned handler
 
-define packages::versioned ( 
+define packages::versioned (
   $data,
   $debug = false
 ) {

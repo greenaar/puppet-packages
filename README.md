@@ -30,30 +30,22 @@ From a manifest:
 ```
 class { 'packages::manage':
   install_packages => [''], # an array of packages which should have
-                            # state => installed.
+                            # state => installed. Bulk install, default
+                            # provider.
   latest_packages  => [''], # an array of packages which should have
-                            # state => latest.
+                            # state => latest. Bulk install, default
+                            # provider
   remove_packages  => [''], # an array of packages which should have
-                            # state => purged.
+                            # state => purged. Bulk remove.
   install_version  => [''], # a hashed array of packages to manage,
-                            # see hiera details
+                            # see hiera details.  Respects standard
+                            # 'package' options.
 }
 ```
 From hiera:
 
 ----------------------------
 
- Please note, when using layered yaml files, you will want to make
-  sure that you have the deep_merge gem installed and configured.
-```
-gem install deep_merge
-```
-## in hiera.yaml
-```
-:merge_behavior:
-  - deeper
-```
-----------------------------
 ```
 packages::install:
   - 'nano'
