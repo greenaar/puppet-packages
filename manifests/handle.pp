@@ -8,7 +8,7 @@ define packages::handle (
 ) {
 
 # TODO : validate options
-  if ! ($ensure in [ 'installed', 'latest', 'absent' ]) {
+  if ! ($ensure in [ 'installed', 'latest', 'absent', 'purged' ]) {
     fail("\"${ensure}\" is not a valid ensure parameter value")
   }
 
